@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -18,9 +19,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css"/>
         <!-- --------------------------------------------------------------- -->
-        
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/app.js"></script>
-         
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+        <!-- --------------------------------------------------------------- -->
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/contato.js"></script>
+        <!-- --------------------------------------------------------------- -->
+                
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#contatos').DataTable({
@@ -31,6 +34,7 @@
 
             });
         </script>
+
     </head>
     <body>
     <nav class="navbar navbar-inverse navbar-static-top">
@@ -55,7 +59,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="nome">Fornecedor:</label>
                     <div class="col-sm-10">
-                        <select name="fornId" id="fornId" class="form-control">
+                        <select name="fornId" id="fornId" class="form-control" required>
                             <option value="">Selecione</option>
                             <c:forEach var="fornecedor" items="${fornecedores}">
                                 <option value="${fornecedor.id}">${fornecedor.nomeFantasia}</option>
@@ -66,34 +70,40 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="nome">Nome:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nome" 
-                               placeholder="Digite o Nome" value="${contato.nome}">
+                        <input type="text" class="form-control" name="nome" id="nome"
+                               placeholder="Digite o Nome" value="${contato.nome}" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="email">Email:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="email" 
-                               placeholder="Digite o Email" value="${contato.email}">
+                        <input type="email" class="form-control" name="email" 
+                               placeholder="Digite o Email" value="${contato.email}" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="fone">Telefone:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="fone" 
-                               placeholder="Digite o Telefone" value="${contato.fone}">
+                        <input type="text" class="form-control" name="fone" id="fone"
+                               placeholder="Digite o Telefone" value="${contato.fone}" required>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">Salvar</button>
-                    </div>
-                </div>
-            </form>
+        </div>   
+        <div class="row">
+            <div class="col-12">
+                <button type="submit" class="btn btn-success pull-right" style="margin-right: 13px;">Salvar</button>
+                <button type="button" class="btn btn-default pull-right" style="margin-right: 13px;">Editar</button>
+            </div>
+        </div>
+    </form>
+
+    <br/>
+    <div class="row">
+        <div class="col-12">
             <c:choose>
                 <c:when test="${not empty contatos}">
 
-                    <table class="table" id="contatos">
+                    <table class="table table-hover table-responsive" id="contatos">
                         <thead>
                             <tr>
                                 <th>ID</th><th>Vendedor</th><th>Email</th><th>Telefone</th><th>&nbsp;</th><th>&nbsp;</th>
@@ -119,7 +129,9 @@
                 </c:when>
             </c:choose>
         </div>
-    </div>
+    </div>      
+
+</div>
 
 </body>
 </html>
