@@ -38,18 +38,18 @@ public class Fornecedor implements Serializable {
     @Column(nullable = false)
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 14)
+    @NotNull( message = "O campo CNPJ é obrigatório.")
+    @Size(min = 14, max = 14 , message = "O campo CNPJ tem queter 14 caracteres.")
     @Column(nullable = false, length = 14)
     private String cnpj;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @NotNull( message = "O campo Nome Fantasia é obrigatório.")
+    @Size(min = 1, max = 50, message = "O campo Nome Fantasia tem de 1 a 50 caracteres.")
     @Column(nullable = false, length = 50)
     private String nomeFantasia;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @NotNull( message = "O campo Razão Social é obrigatório.")
+    @Size(min = 1, max = 50,  message = "O campo Razão Social tem de 1 a 50 caracteres.")
     @Column(nullable = false, length = 50)
     private String razaoSocial;
     @JoinTable(name = "cotacaofornecedores", joinColumns = {
