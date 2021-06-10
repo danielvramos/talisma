@@ -49,7 +49,7 @@ public class Contato implements Serializable {
     @Size(min = 1, max = 20,  message = "O campo Telefone tem de 1 a 20 caracteres")
     @Column(nullable = false, length = 20)
     private String fone;
-    @JoinColumn(name = "id_fornecedor", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idFornecedor", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Fornecedor fornecedor;
 
