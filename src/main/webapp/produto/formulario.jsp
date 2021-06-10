@@ -1,7 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div > 
-    <form class="form-horizontal">
+    <form class="form-horizontal" id="frmProduto">
         <input type="hidden" id="id" value="${produto.id}" />
         <div class="form-group">
             <label class="control-label col-sm-4" for="nome">Nome do produto:</label>
@@ -29,27 +29,27 @@
             <div class="col-sm-8">
 
                 <div class='input-group date' id='datetimepicker1' >
-                    <input type='text' class="form-control" id="dataValidade" value="${produto.dataValidade}"/>
+                    <input type='text' class="form-control" name="dataValidade" id="dataValidade" value="${produto.dataValidade}"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
 
-
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <input type="button" onclick="salvarProduto()" class="btn btn-default" value="Salvar"/>
-                </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="button" onclick="salvarProduto()" class="btn btn-default" value="Salvar"/>
             </div>
+        </div>
     </form>
-    
-</div>
-<script type="text/javascript">
-$(function() {
-  $('#datetimepicker1').datetimepicker({
-                 format: 'YYYY-MM-DD'
-             });
-});
- 
-</script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+        });
+
+    </script>
