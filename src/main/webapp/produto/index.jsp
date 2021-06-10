@@ -77,17 +77,31 @@
                     }
                 });
             }
-            function salvarProduto() {
-                var produto = {"id": $('#id').val(),
-                    "nome": $('#nome').val(),
-                    "categoria": $('#categoria').val(),
-                    "valor": $('#valor').val(),
+            function teste() {
+                var formdata = $('#frmProduto').serializeArray();
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                         $('#mensagemSalvar').html(this.responseText);
+                    }
+                };
+                xhttp.open("POST", "salvar", true);
+                //xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send(formdata);
+            }
 
-                    "dataValidade": $('#dataValidade').val()};
+            function salvarProduto() {
+                var formdata = $('#frmProduto').serializeArray();
+                var produto = {id: $('#id').val(),
+                    nome: $('#nome').val(),
+                    categoria: $('#categoria').val(),
+                    valor: $('#valor').val(),
+                    dataValidade: $('#dataValidade').val()};
                 $.ajax({
                     type: "POST",
                     url: "salvar",
-                    data: produto,
+                    contentType:'application/json',
+                    data: JSON.stringify(produto),
                     success: function (result) {
                         $('#mensagemSalvar').html(result);
                         $('#mensagemSalvar').addClass("alert-success")
@@ -95,7 +109,7 @@
 
                     },
                     error: function (e) {
-                        $('#mensagemSalvar').html(JSON.stringify(e, null, 4));
+                        $('#mensagemSalvar').html(e.responseText);
                         $('#mensagemSalvar').addClass("alert-danger")
                         $('#mensagemSalvar').removeClass("alert-success")
                     }
@@ -121,7 +135,7 @@
         </div>
     </nav>
     <div class="container">
-        <form class="form-horizontal" action="salvar" method="post">
+        <form class="form-horizontal">
 
             <c:choose>
                 <c:when test="${not empty fornecedores}">
