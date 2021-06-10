@@ -57,7 +57,7 @@ public class Fornecedor implements Serializable {
         @JoinColumn(name = "idProduto", referencedColumnName = "id", nullable = false)})
     @ManyToMany
     private List<Produto> produtos;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFornecedor")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fornecedor")
     private List<Contato> contatos;
 
     public Fornecedor() {

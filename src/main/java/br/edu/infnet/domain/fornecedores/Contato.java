@@ -1,4 +1,3 @@
-
 package br.edu.infnet.domain.fornecedores;
 
 import java.io.Serializable;
@@ -13,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Contato.findById", query = "SELECT c FROM Contato c WHERE c.id = :id"),
     @NamedQuery(name = "Contato.findByNome", query = "SELECT c FROM Contato c WHERE c.nome = :nome"),
     @NamedQuery(name = "Contato.findByEmail", query = "SELECT c FROM Contato c WHERE c.email = :email"),
-    @NamedQuery(name = "Contato.findByTelefone", query = "SELECT c FROM Contato c WHERE c.telefone = :telefone")})
+    @NamedQuery(name = "Contato.findByFone", query = "SELECT c FROM Contato c WHERE c.fone = :fone")})
 public class Contato implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,24 +34,24 @@ public class Contato implements Serializable {
     @Column(nullable = false)
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @NotNull(message = "O campo Nome é obrigatório")
+    @Size(min = 1, max = 50, message = "O campo Nome tem de 1 a 50 caracteres")
     @Column(nullable = false, length = 50)
     private String nome;
-    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Email inválido")
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 80)
-    @Column(nullable = false, length = 80)
+    @NotNull(message = "O campo Email é obrigatório")
+    @Size(min = 1, max = 50, message = "O campo Email tem de 1 a 50 caracteres")
+    @Column(nullable = false, length = 50)
     private String email;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @NotNull(message = "O campo Telefone é obrigatório")
+    @Size(min = 1, max = 20,  message = "O campo Telefone tem de 1 a 20 caracteres")
     @Column(nullable = false, length = 20)
-    private String telefone;
-    @JoinColumn(name = "idFornecedor", referencedColumnName = "id", nullable = false)
+    private String fone;
+    @JoinColumn(name = "id_fornecedor", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Fornecedor idFornecedor;
+    private Fornecedor fornecedor;
 
     public Contato() {
     }
@@ -60,11 +60,11 @@ public class Contato implements Serializable {
         this.id = id;
     }
 
-    public Contato(Integer id, String nome, String email, String telefone) {
+    public Contato(Integer id, String nome, String email, String fone) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.telefone = telefone;
+        this.fone = fone;
     }
 
     public Integer getId() {
@@ -91,20 +91,20 @@ public class Contato implements Serializable {
         this.email = email;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getFone() {
+        return fone;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setFone(String fone) {
+        this.fone = fone;
     }
 
-    public Fornecedor getIdFornecedor() {
-        return idFornecedor;
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
-    public void setIdFornecedor(Fornecedor idFornecedor) {
-        this.idFornecedor = idFornecedor;
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     @Override
