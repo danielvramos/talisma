@@ -3,8 +3,10 @@ package br.edu.infnet.app.fornecedores;
 import br.edu.infnet.domain.fornecedores.Fornecedor;
 import br.edu.infnet.infra.fornecedores.FornecedorRepository;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,17 +52,27 @@ public class FornecedorController {
     }
 
     @RequestMapping("/fornecedor/salvar")
-    public ModelAndView salvarFornecedor(Fornecedor fornecedor) {
+    public ModelAndView salvarFornecedor(@Valid Fornecedor fornecedor, BindingResult br) {
 
         ModelAndView retorno = new ModelAndView("fornecedor/index");
-        if (fornecedor.getId() == null) {
+        if (br.hasErrors()) {
 
-            fr.inserir(fornecedor);
+            retorno.addObject("erros", br.getFieldErrors());
+            retorno.addObject("menssagem", null);
         } else {
-            fr.atualizar(fornecedor);
+            if (fornecedor.getId() == null) {
+
+                fr.inserir(fornecedor);
+            } else {
+                fr.atualizar(fornecedor);
+                
+            }
+            retorno.addObject("menssagem", "Fornecedor cadastrado com sucesso.");
+            retorno.addObject("erros", null);
         }
-        retorno.addObject("fornecedor", null);
-        retorno.addObject("fornecedores", fr.listar());
+            retorno.addObject("fornecedor", fornecedor);
+            retorno.addObject("fornecedores", fr.listar());
+            
         return retorno;
     }
 
