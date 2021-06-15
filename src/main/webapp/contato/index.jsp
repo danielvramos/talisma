@@ -92,7 +92,6 @@
         <div class="row">
             <div class="col-12">
                 <button type="submit" class="btn btn-success pull-right" style="margin-right: 13px;">Salvar</button>
-                <button type="button" class="btn btn-default pull-right" style="margin-right: 13px;">Editar</button>
             </div>
         </div>
     </form>
